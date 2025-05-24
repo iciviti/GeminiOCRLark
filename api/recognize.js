@@ -5,12 +5,34 @@ const ADVANCED_PROMPT = `
 1. Perform initial OCR recognition → Mark low-confidence characters
 2. Conduct semantic analysis → Correct obvious errors
 3. Perform secondary validation → Ensure the accuracy of markings and corrections
+﻿
+## Core Processing Principles  
+1.  **Location Isolation Principle**  
+    * Each text element must be processed independently based on visual evidence from its specific location  
+    * Prohibit cross-region referencing, including but not limited to:  
+      - Other paragraphs in the same document  
+      - Adjacent table cells  
+      - Header/footer content  
+      - Residual text at image edges  
+﻿
+2.  **Variant Preservation Protocol**  
+    * Mandatory retention of all textual variants:  
+      - Term variations across locations (e.g., "豪享版" vs "豪华版")  
+      - Case inconsistencies (e.g., "iPhone" vs "IPHONE")  
+      - Format variants (e.g., "图1-1" vs "图1.1")  
+      - Spelling variants (e.g., "登录/login" vs "登陆/landing")  
+    * Implementation examples:  
+      ✓ Preserve both "甲方/Party A" and "甲方：/Party A:" in contracts  
+      ✓ Maintain alternating "WiFi" and "Wifi" in technical documents  
+      ✓ Retain mixed "ID" and "Id" usage within the same table  
 
-## Special Handling Rules
-*   Handwritten documents: Apply a lenient marking strategy (confidence threshold lowered by 15%)
-*   Printed documents: Apply a strict correction strategy (requires dual validation)
-*   Table content: Only permit correction of numerical/symbol errors; do not modify textual content
-
+3.  **Anti-Correction Mechanism**  
+    * Strictly prohibited correction types:  
+      - Term unification (e.g., changing scattered "用户ID/User ID" to "用户Id/User Id")  
+      - Format standardization (e.g., converting "2023年1月1日/Jan 1, 2023" to "2023-01-01")  
+      - Synonym substitution (e.g., replacing "移动应用/mobile application" with "手机APP/smartphone app")  
+      - Abbreviation expansion (e.g., expanding "北大/Beida" to "北京大学/Peking University")  
+﻿
 ## Adhere to the following standards and requirements:
 1.  **Mathematical Formula Standards:**
     *   Use $$ for standalone mathematical formulas, e.g., $$E = mc^2$$
@@ -24,7 +46,6 @@ const ADVANCED_PROMPT = `
       | Copy Writing  | $50/hr  | 4     | $200.00  |
       | Website Design| $50/hr  | 2     | $100.00  |
     *   Separate headers and cells with "|-" lines, with at least three "-" per column for alignment.
-    *   Tables should not be broken into paragraphs; each row should immediately follow the previous one.
     *   Monetary amounts must include currency symbols and decimal points (if present in the original text).
     *   If a table is identified, do not ignore the text outside of it.
 
@@ -44,7 +65,7 @@ const ADVANCED_PROMPT = `
         - Instances where similar characters are difficult to distinguish (e.g., "未" vs. "末")
         - Recognition results with a confidence score below 85%
     *   For sequences of 3 or more consecutive low-confidence characters, **bold the entire sequence**.
-    *   For handwritten text, apply a more lenient marking strategy: mark any character with blurred or ambiguous strokes.
+    *   For handwritten text, apply a more lenient marking strategy: **bold** any character with blurred or ambiguous strokes.
 
 6.  **Contextual Proofreading and Correction:**
     *   Only correct errors that meet the following criteria:
@@ -55,7 +76,6 @@ const ADVANCED_PROMPT = `
     *   Make corrections if and only if the confidence in the correction is >90%.
     *   Mark the *corrected* text or words with *italics* to clearly indicate modifications.
     *   Assume that any word could potentially contain spelling or semantic errors unless you are 100% certain it is correct.
-    *   Do not automatically correct technical terms or proper nouns.
 
 7.  **Output Requirements:**
     *   Directly output the processed content without adding any explanations, introductions, or summaries.

@@ -20,11 +20,30 @@
   - 剪贴板粘贴上传
   - 远程URL导入
 
-## 完全免费
-Vercel平台云端快速部署，使用Google Gemini免费API
+## 实际效果
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/38e213f8-e985-42f8-8252-3824a32c44bd" alt="主界面" width="968">
+  <br>
+  <small>手写稿的识别与标记</small>
+</div>
+<br>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/c2fa9951-18bf-4724-bd5e-8d7b498cd6a3" alt="主界面" width="968">
+  <br>
+  <small>肉眼根本看不清的英文也能准确识别</small>
+</div>
+<br>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/be900dcc-1d32-4923-9fbe-e2b45d5e3e54" alt="主界面" width="968">
+  <br>
+  <small>表格智能识别并将其他内容单独区分，非基于AI的OCR做不到</small>
+</div>
 
 ## 演示地址
 https://ocr.lark.nyc.mn
+
+## 完全免费
+Vercel平台云端快速部署，使用Google Gemini免费API
 
 ## 部署指南
 
